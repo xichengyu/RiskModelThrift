@@ -2,7 +2,7 @@
 # coding=utf-8
 
 import sys
-import socket
+# import socket
 import json
 sys.path.append('../gen-py')
 from RiskModel import RiskModelThriftService
@@ -53,7 +53,7 @@ def BuildTserver(ip, port):
 
 if __name__ == "__main__":
 
-    cnf_file_path = "../cnf/riskmodel.cnf"
+    cnf_file_path = "../conf/riskmodel.conf"
 
     thrift_server = "172.31.24.11:9090"
 

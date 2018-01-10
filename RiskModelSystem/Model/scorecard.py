@@ -443,14 +443,14 @@ def get_train_test_data(data, target_fields=None):
     return train_data, test_data
 
 
-def main():
+def main(X):
     woe_score = joblib.load("./conf/woe_score.nparray")
     X_interval = joblib.load("./conf/X_interval.nparray")
     scale_location = joblib.load("./conf/scale_location.coef")
     scale = scale_location[0]
     location = scale_location[1]
-    X = joblib.load("./conf/X.nparray")
-    y = joblib.load("./conf/y.nparray")
+    # X = joblib.load("./conf/X.nparray")
+    # y = joblib.load("./conf/y.nparray")
 
     # 计算woe
     cal_woe = WOE()
@@ -480,8 +480,10 @@ def main():
             score.append(location+sum(test_X_woe_replace[idx, :]))
         joblib.dump(score, "./conf/score.nparray")
 
+        return score
+
     # get_score(test_X)
-    get_score(X)
+    X_score = get_score(X)
     print(scale, location)
 
 
@@ -545,5 +547,7 @@ def main():
             print("interval: ", (x_label[i], x_label[i+1]), "interval_total: ", cnt_dict[i], "interval_bad_total: ",
                   cnt_dict_1[i], "interval_bad_rate: ", cnt_dict_1[i]/cnt_dict[i])
 
-    cnt_dict = dict(sorted(cnt_dict.items(), key=lambda d: d[0]))
+    # cnt_dict = dict(sorted(cnt_dict.items(), key=lambda d: d[0]))
     # BarChart(list(cnt_dict.keys()), list(cnt_dict.values()), chart_name="ctrip_credit_score")
+
+    return X_score

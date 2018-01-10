@@ -8,6 +8,7 @@ import json
 import traceback
 import scorecard
 import time
+from sklearn.externals import joblib
 
 
 class data_handler(object):
@@ -16,11 +17,16 @@ class data_handler(object):
         self.model = filtering_model
 
     def get_data(self):
-        pass
-
-    def gen_plans(self):
+        X = []
         try:
-            return self.model(self.request, self.get_data())
+            X = joblib.load("./conf/X.nparray")
+        except:
+            pass
+        return X
+
+    def gen_score(self):
+        try:
+            return self.model(self.get_data())
         except:
             print(time.strftime("[%Y-%m-%d %H:%M:%S]", time.localtime()), traceback.format_exc())
             return {}
@@ -32,22 +38,13 @@ class data_handler(object):
 
 if __name__ == '__main__':
 
-    # time_1 = time.time()
+    test_request = "{}"
 
-    # handle_data = data_handler(test_request, scorecard)
+    handle_data = data_handler(test_request, scorecard.main)
+    score = handle_data.gen_score()
 
-    # print 'initial_time: ', time.time() - time_1
+    print(len(score))
 
-    # time_3 = time.time()
-
-    # response = handle_data.gen_response()
-
-    # print 'recommend_time: ', time.time() - time_3
-
-    # print json.loads(response)['plans'][0]['shops'][1]['ext']
-    # print(json.loads(response))
-
-    scorecard.main()
 
 
 

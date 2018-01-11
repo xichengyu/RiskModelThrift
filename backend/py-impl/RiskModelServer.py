@@ -5,6 +5,10 @@ import sys
 # import socket
 import json
 sys.path.append('../gen-py')
+sys.path.append('../../RiskModelSystem/Model')
+import scorecard
+import planner
+
 from RiskModel import RiskModelThriftService
 from RiskModel.ttypes import *
 
@@ -28,10 +32,10 @@ class RiskModelHandler:
         request = json.loads(rmodel_request.json_data)
         logging.info(request)
 
-        # handle_data = planner.data_handler(request, planner.coldstart_model)
-        # response.json_data = handle_data.gen_response()     # generate thrift response
+        handle_data = planner.data_handler(request, scorecard.main)
+        response.json_data = handle_data.gen_response()     # generate thrift response
 
-        response.json_data = rmodel_request.json_data
+        # response.json_data = rmodel_request.json_data
 
         logging.info(json.loads(response.json_data))
 

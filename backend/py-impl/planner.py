@@ -29,10 +29,10 @@ class data_handler(object):
             return self.model(self.get_data())
         except:
             print(time.strftime("[%Y-%m-%d %H:%M:%S]", time.localtime()), traceback.format_exc())
-            return {}
+            return []
 
     def gen_response(self):
-        response = {}
+        response = {"score": self.gen_score()}
         return json.dumps(response)
 
 
@@ -44,6 +44,7 @@ if __name__ == '__main__':
     score = handle_data.gen_score()
 
     print(len(score))
+    print(max(score), min(score))
 
 
 

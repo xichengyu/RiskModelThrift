@@ -486,7 +486,7 @@ def main(X):
     X_score = get_score(X)
     print(scale, location)
 
-
+    '''
     # 参数设定
     n = 400
     positive_y = 1
@@ -546,7 +546,7 @@ def main(X):
         if i in cnt_dict:
             print("interval: ", (x_label[i], x_label[i+1]), "interval_total: ", cnt_dict[i], "interval_bad_total: ",
                   cnt_dict_1[i], "interval_bad_rate: ", cnt_dict_1[i]/cnt_dict[i])
-
+    '''
     # cnt_dict = dict(sorted(cnt_dict.items(), key=lambda d: d[0]))
     # BarChart(list(cnt_dict.keys()), list(cnt_dict.values()), chart_name="ctrip_credit_score")
 

@@ -550,4 +550,4 @@ def main(X):
     # cnt_dict = dict(sorted(cnt_dict.items(), key=lambda d: d[0]))
     # BarChart(list(cnt_dict.keys()), list(cnt_dict.values()), chart_name="ctrip_credit_score")
 
-    return X_score
+    return X_score[0]

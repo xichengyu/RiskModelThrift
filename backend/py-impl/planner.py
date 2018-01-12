@@ -34,11 +34,11 @@ class data_handler(object):
     def gen_score(self):
         data = self.get_data()
 
-        print(data)
+        # print(data)
         try:
             return self.model(data)
         except:
-            print(time.strftime("[%Y-%m-%d %H:%M:%S]", time.localtime()), traceback.format_exc())
+            # print(time.strftime("[%Y-%m-%d %H:%M:%S]", time.localtime()), traceback.format_exc())
             return "request format error!"
 
     def gen_response(self):
@@ -54,7 +54,7 @@ if __name__ == '__main__':
     handle_data = data_handler(test_request, scorecard.main)
 
     response = handle_data.gen_response()
-    print(response)
+    # print(response)
 
 
 

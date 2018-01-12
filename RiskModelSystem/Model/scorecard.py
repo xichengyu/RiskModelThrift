@@ -282,7 +282,7 @@ class WOE(object):
         model = DecisionTreeRegressor(max_depth=10)
         model.fit(x, y)
         prediction, bias, contribution = ti.predict(model, x)
-        print(prediction, "\n", bias, "\n", contribution)
+        # print(prediction, "\n", bias, "\n", contribution)
         '''
         for i in range(n):
             point1, point2 = stats.scoreatpercentile(x, [i*100/n, (i+1)*100/n])
@@ -467,7 +467,7 @@ def main(X):
         elif cal_woe.DISCRETION == "interval_discrete":
             test_X_discretion = cal_woe.test_interval_discrete(test_X, X_interval)
 
-        print(test_X_discretion.shape)
+        # print(test_X_discretion.shape)
         joblib.dump(test_X_discretion, "./conf/test_X_discretion.nparray")
 
         # 计算测试集woe score
@@ -484,7 +484,7 @@ def main(X):
 
     # get_score(test_X)
     X_score = get_score(X)
-    print(scale, location)
+    # print(scale, location)
 
     '''
     # 参数设定
@@ -498,7 +498,7 @@ def main(X):
     y = joblib.load("./conf/y.nparray")
     score = joblib.load("./conf/score.nparray")
     woe_score = joblib.load("./conf/woe_score.nparray")
-    print("total: ", y.shape, "bad_total: ", sum(y))
+    # print("total: ", y.shape, "bad_total: ", sum(y))
 
     # 统计原始score的极值与KS值
     max_score = max(score)
@@ -518,17 +518,17 @@ def main(X):
     a = (sum_min_woe_score-sum_max_woe_score)/(credit_score_upper-credit_score_lower)
     b = sum_min_woe_score-a*credit_score_upper
 
-    print("a: ", a, "b: ", b)
-    print("sum_max_woe_score: ", sum_max_woe_score, "sum_min_woe_score: ", sum_min_woe_score)
-    print("max_score: ", max_score, "min_score: ", min_score, "gap: ", gap)
-    print("auc: ", roc_auc_score(y, score))
+    # print("a: ", a, "b: ", b)
+    # print("sum_max_woe_score: ", sum_max_woe_score, "sum_min_woe_score: ", sum_min_woe_score)
+    # print("max_score: ", max_score, "min_score: ", min_score, "gap: ", gap)
+    # print("auc: ", roc_auc_score(y, score))
 
     # 计算原始score对应的credit_score
     score = (score-b)/a
     max_score = max(score)
     min_score = min(score)
     gap = (max_score-min_score)/n
-    print("max_credit_score: ", max_score, "min_credit_score: ", min_score, "gap: ", gap)
+    # print("max_credit_score: ", max_score, "min_credit_score: ", min_score, "gap: ", gap)
 
     x_label = [min_score+i*gap for i in range(n+1)]
     x_label[-1] = max_score
@@ -544,7 +544,7 @@ def main(X):
 
     for i in range(n):
         if i in cnt_dict:
-            print("interval: ", (x_label[i], x_label[i+1]), "interval_total: ", cnt_dict[i], "interval_bad_total: ",
+            # print("interval: ", (x_label[i], x_label[i+1]), "interval_total: ", cnt_dict[i], "interval_bad_total: ",
                   cnt_dict_1[i], "interval_bad_rate: ", cnt_dict_1[i]/cnt_dict[i])
     '''
     # cnt_dict = dict(sorted(cnt_dict.items(), key=lambda d: d[0]))

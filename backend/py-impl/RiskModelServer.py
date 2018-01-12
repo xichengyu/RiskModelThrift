@@ -51,7 +51,7 @@ def BuildTserver(ip, port):
 
     server = TServer.TThreadedServer(processor, transport, tfactory, pfactory)
 
-    print("Starting python server with TThreadedServer...")
+    logging.info("Starting python server with TThreadedServer...")
     server.serve()
 
 

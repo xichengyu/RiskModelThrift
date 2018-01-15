@@ -17,6 +17,8 @@ from thrift.transport import TTransport
 from thrift.protocol import TBinaryProtocol
 from thrift.server import TServer
 import logging
+import time
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
                     datefmt='[%Y-%m-%d %H:%M:%S]', filename='thrift.log', filemode='w')
 console = logging.StreamHandler()
@@ -26,8 +28,10 @@ console.setFormatter(formatter)
 logging.getLogger('').addHandler(console)
 
 
+
 class RiskModelHandler:
     def transmitRiskModelData(self, rmodel_request):
+        start = time.time()*1000
         response = RiskModelResponse()
         request = json.loads(rmodel_request.json_data)
         logging.info(request)
@@ -38,6 +42,7 @@ class RiskModelHandler:
         # response.json_data = rmodel_request.json_data
 
         logging.info(json.loads(response.json_data))
+        logging.info("Thrift cost time(ms): %s", str(time.time()*1000 - start))
 
         return response
 

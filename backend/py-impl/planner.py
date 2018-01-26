@@ -46,7 +46,7 @@ class data_handler(object):
             return self.model(data)
         except:
             # print(time.strftime("[%Y-%m-%d %H:%M:%S]", time.localtime()), traceback.format_exc())
-            return "request format error!"
+            return "request key error!"
 
     def gen_response(self):
         response = {"modelId": self.request["modelId"], "score": self.gen_score(), "responseId": self.request["queryId"], "idnoHash":self.request["idnoHash"],

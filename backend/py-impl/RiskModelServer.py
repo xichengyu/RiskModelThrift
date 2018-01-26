@@ -28,14 +28,20 @@ console.setFormatter(formatter)
 logging.getLogger('').addHandler(console)
 
 
+model_dict = {"LL0041": scorecard.main,
+              "LL0042": None}
+
+
 class RiskModelHandler:
     def transmitRiskModelData(self, rmodel_request):
         start = time.time()*1000
         response = RiskModelResponse()
         request = json.loads(rmodel_request.json_data)
         logging.info(request)
-
-        handle_data = planner.data_handler(request, scorecard.main)
+        try:
+            handle_data = planner.data_handler(request, model_dict[request["modelId"]])
+        except:
+            return "Wrong modelId!"
         response.json_data = handle_data.gen_response()     # generate thrift response
 
         # response.json_data = rmodel_request.json_data

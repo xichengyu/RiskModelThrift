@@ -8,6 +8,10 @@ sys.path.append('../gen-py')
 sys.path.append('../../RiskModelSystem/Model')
 import scorecard
 import planner
+# import xgboost
+# import lightgbm
+# import catboost
+from sklearn.externals import joblib
 
 from RiskModel import RiskModelThriftService
 from RiskModel.ttypes import *
@@ -28,8 +32,9 @@ console.setFormatter(formatter)
 logging.getLogger('').addHandler(console)
 
 
+stacking_0 = joblib.load("../../RiskModelSystem/Model/stacked_16.pkl")
 model_dict = {"LL0041": scorecard.main,
-              "LL0042": None}
+              "LL0042": stacking_0}
 
 
 class RiskModelHandler:

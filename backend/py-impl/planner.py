@@ -46,7 +46,7 @@ class data_handler(object):
 
     def gen_response(self):
         response = {"score": self.gen_score(), "responseId": self.request["queryId"], "idnoHash":self.request["idnoHash"],
-                    "applyDate":self.request["applyDate"]}
+                "applyDate":self.request["applyDate"], "modelId": self.request["modelId"]}
         return json.dumps(response)
 
 

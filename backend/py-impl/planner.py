@@ -59,7 +59,7 @@ if __name__ == '__main__':
     handle_data = data_handler(test_request, scorecard.main)
 
     response = handle_data.gen_response()
-    # print(response)
+    print(response)
 
 
 

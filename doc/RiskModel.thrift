@@ -16,7 +16,7 @@
 
     {
         "queryId": "1515639695000",(uuid)
-        "modelId": "LL038",
+        "modelId": "LL0038",
         "idnoHash": "d8cb27acb114052c8274d9ee1af5bc40abf1ee94bdb885e0f1733f8fd7d287c2",(加密的用户idno(string))
         "applyDate": "2017-01-11 11:11:11", (用户申请时间，时间格式(string))
         "fieldData": {"fieldName1": 1.0,
@@ -43,7 +43,7 @@ struct RiskModelRequest
 
     {
         "responseId": "1515639695000", (uuid)
-        "modelId": "LLo38",
+        "modelId": "LL0038",
         "idnoHash": "d8cb27acb114052c8274d9ee1af5bc40abf1ee94bdb885e0f1733f8fd7d287c2", (加密的用户idno(string))
         "applyDate": "2017-01-11 11:11:11", (用户申请时间，时间格式(string))
         "score": 1.0, (用户各指标详细数据，支持多用户查询，list格式，指标数据形式为float)

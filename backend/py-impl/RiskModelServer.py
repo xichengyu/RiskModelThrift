@@ -8,6 +8,10 @@ sys.path.append('../gen-py')
 sys.path.append('../../RiskModelSystem/Model')
 import scorecard
 import planner
+# import xgboost
+# import lightgbm
+# import catboost
+from sklearn.externals import joblib
 
 from RiskModel import RiskModelThriftService
 from RiskModel.ttypes import *
@@ -28,6 +32,10 @@ console.setFormatter(formatter)
 logging.getLogger('').addHandler(console)
 
 
+stacking_0 = joblib.load("../../RiskModelSystem/Model/stacked_16.pkl")
+model_dict = {"LL0041": scorecard.main,
+              "LL0042": stacking_0}
+
 
 class RiskModelHandler:
     def transmitRiskModelData(self, rmodel_request):
@@ -35,14 +43,16 @@ class RiskModelHandler:
         response = RiskModelResponse()
         request = json.loads(rmodel_request.json_data)
         logging.info(request)
-
-        handle_data = planner.data_handler(request, scorecard.main)
+        try:
+            handle_data = planner.data_handler(request, model_dict[request["modelId"]])
+        except:
+            return "Wrong modelId!"
         response.json_data = handle_data.gen_response()     # generate thrift response
 
         # response.json_data = rmodel_request.json_data
 
         logging.info(json.loads(response.json_data))
-        logging.info("Thrift cost time(ms): %s", str(time.time()*1000 - start))
+        logging.info("Thrift time cost(ms): %s", str(time.time()*1000 - start))
 
         return response
 
@@ -54,9 +64,11 @@ def BuildTserver(ip, port):
     tfactory = TTransport.TBufferedTransportFactory()
     pfactory = TBinaryProtocol.TBinaryProtocolFactory()
 
-    server = TServer.TThreadedServer(processor, transport, tfactory, pfactory)
+    # server = TServer.TThreadedServer(processor, transport, tfactory, pfactory)
+    server = TServer.TForkingServer(processor, transport, tfactory, pfactory)
+    # logging.info("Starting python server with TThreadedServer...")
+    logging.info("Starting python server with TForkingServer...")
 
-    logging.info("Starting python server with TThreadedServer...")
     server.serve()
 
 

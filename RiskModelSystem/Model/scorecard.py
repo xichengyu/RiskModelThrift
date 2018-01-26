@@ -8,7 +8,7 @@ import numpy as np
 import math
 from scipy import stats
 from sklearn.utils.multiclass import type_of_target
-import logging
+# import logging
 from collections import Counter
 # from sklearn.ensemble import RandomForestRegressor
 from sklearn.tree import DecisionTreeRegressor
@@ -22,6 +22,7 @@ formatter = logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s')
 console.setFormatter(formatter)
 logging.getLogger('').addHandler(console)
 '''
+
 
 class WOE(object):
     def __init__(self):
@@ -180,37 +181,37 @@ class WOE(object):
             for i in range(0, X.shape[-1]):
                 x = X[:, i]
                 x_type = type_of_target(x)
-                logging.info("before: "+" ".join([str(i), str(set(X[:, i])), str(x_type)]))
+                # logging.info("before: "+" ".join([str(i), str(set(X[:, i])), str(x_type)]))
                 if 0:
                     if x_type == 'continuous':
                         x1, interval = self.percentile_discrete(x, self._WOE_N)
                         X_interval.append(interval)
                         temp.append(x1)
-                        logging.info("continue_after: " + " ".join([str(i), str(set(x1)), str(x1)]))
+                        # logging.info("continue_after: " + " ".join([str(i), str(set(x1)), str(x1)]))
                     else:
                         temp.append(x)
-                        logging.info("after: " + " ".join([str(i), str(set(x)), str(x)]))
+                        # logging.info("after: " + " ".join([str(i), str(set(x)), str(x)]))
                 else:
                     x1, interval = self.percentile_discrete(x, self._WOE_N)
                     X_interval.append(interval)
                     temp.append(x1)
-                    logging.info("continue_after: " + " ".join([str(i), str(set(x1)), str(x1)]))
+                    # logging.info("continue_after: " + " ".join([str(i), str(set(x1)), str(x1)]))
         elif self._DISCRETION == "interval_discrete":
             for i in range(0, X.shape[-1]):
                 x = X[:, i]
-                logging.info("before: "+" ".join([str(i), str(set(X[:, i]))]))
+                # logging.info("before: "+" ".join([str(i), str(set(X[:, i]))]))
                 x1, interval = self.interval_discrete(x, self._WOE_N)
                 X_interval.append(interval)
                 temp.append(x1)
-                logging.info("interval_after: " + " ".join([str(i), str(set(x1)), str(x1)]))
+                # logging.info("interval_after: " + " ".join([str(i), str(set(x1)), str(x1)]))
         elif self._DISCRETION == "rf_discrete":
             for i in range(0, X.shape[-1]):
                 x = X[:, i]
-                logging.info("before: "+" ".join([str(i), str(set(X[:, i]))]))
+                # logging.info("before: "+" ".join([str(i), str(set(X[:, i]))]))
                 x1, interval = self.rf_discrete(x, y)
                 X_interval.append(interval)
                 temp.append(x1)
-                logging.info("rf_after: " + " ".join([str(i), str(set(x1)), str(x1)]))
+                # logging.info("rf_after: " + " ".join([str(i), str(set(x1)), str(x1)]))
         return np.array(temp).T, X_interval
 
     def percentile_discrete(self, x, n=20):
@@ -221,7 +222,7 @@ class WOE(object):
         :return: discreted 1-D numpy array
         """
         res = np.array([0] * x.shape[-1], dtype=int)
-        logging.info("before_counter: " + str(Counter(x)))
+        # logging.info("before_counter: " + str(Counter(x)))
         x_temp = x[x != -1.0]
         interval_list = []
         for i in range(1+n):
@@ -229,18 +230,18 @@ class WOE(object):
                 x1 = x[np.where(x == -1.0)]
                 mask = np.in1d(x, x1)
                 res[mask] = (i + 1)
-                logging.info("discrete: " + str((-1.0, -1.0)))
+                # logging.info("discrete: " + str((-1.0, -1.0)))
                 point1, point2 = -1, -1
             else:
                 point1, point2 = stats.scoreatpercentile(x_temp, [(i-1)*100/n, i*100/n])
                 x1 = x[np.where((x >= point1) & (x <= point2))]
                 mask = np.in1d(x, x1)
                 res[mask] = (i + 1)
-                logging.info("discrete: " + str(res) + str((point1, point2)))
+                # logging.info("discrete: " + str(res) + str((point1, point2)))
             interval_list.append((point1, point2))
-            logging.info("mask: " + str(mask))
-        logging.info("discrete_main: " + str(res))
-        logging.info("discrete_counter: " + str(Counter(res)))
+            # logging.info("mask: " + str(mask))
+        # logging.info("discrete_main: " + str(res))
+        # logging.info("discrete_counter: " + str(Counter(res)))
         return res, interval_list
 
     def interval_discrete(self, x, n=20):
@@ -251,7 +252,7 @@ class WOE(object):
         :return: discreted 1-D numpy array
         """
         res = np.array([0] * x.shape[-1], dtype=int)
-        logging.info("before_counter: " + str(Counter(x)))
+        # logging.info("before_counter: " + str(Counter(x)))
         x_temp = x[x != -1.0]
         interval_list = [(-1.0, -1.0)] + self.interval_point(x_temp, n)
         for i, point in enumerate(interval_list):
@@ -262,11 +263,11 @@ class WOE(object):
                 x1 = x[np.where((x > point1) & (x <= point2))]
             mask = np.in1d(x, x1)
             res[mask] = (i + 1)
-            logging.info("discrete: " + str(res) + str((point1, point2)))
-            logging.info("mask: " + str(mask))
-        logging.info("discrete_main: " + str(res))
-        logging.info("discrete_counter: " + str(Counter(res)))
-        logging.info("interval_point: " + str(interval_list))
+            # logging.info("discrete: " + str(res) + str((point1, point2)))
+            # logging.info("mask: " + str(mask))
+        # logging.info("discrete_main: " + str(res))
+        # logging.info("discrete_counter: " + str(Counter(res)))
+        # logging.info("interval_point: " + str(interval_list))
         return res, interval_list
 
     def rf_discrete(self, x, y):
@@ -290,9 +291,9 @@ class WOE(object):
             x1 = x[np.where((x >= point1) & (x <= point2))]
             mask = np.in1d(x, x1)
             res[mask] = (i + 1)
-            logging.info("discrete: " + str(res) + str((point1, point2)))
-            logging.info("mask: " + str(mask))
-        logging.info("discrete_main: " + str(res))       
+            # logging.info("discrete: " + str(res) + str((point1, point2)))
+            # logging.info("mask: " + str(mask))
+        # logging.info("discrete_main: " + str(res))       
         '''
         # raise ValueError
         return res, interval_list
@@ -310,17 +311,17 @@ class WOE(object):
         for idx in range(test_X.shape[-1]):
             x = test_X[:, idx]
             res = np.array([0] * x.shape[-1], dtype=int)
-            logging.info("test_before_counter: " + str(Counter(x)))
+            # logging.info("test_before_counter: " + str(Counter(x)))
             for i, point in enumerate(interval[idx]):
                 point1, point2 = point[0], point[1]
                 x1 = x[np.where((x >= point1) & (x <= point2))]
                 mask = np.in1d(x, x1)
                 res[mask] = (i + 1)
-                logging.info("test_discrete: " + str(res) + str((point1, point2)))
-                logging.info("test_mask: " + str(mask))
-                logging.info("test_interval_point: " + str(point))
-            logging.info("test_discrete_main: " + str(res))
-            logging.info("test_discrete_counter: " + str(Counter(res)))
+                # logging.info("test_discrete: " + str(res) + str((point1, point2)))
+                # logging.info("test_mask: " + str(mask))
+                # logging.info("test_interval_point: " + str(point))
+            # logging.info("test_discrete_main: " + str(res))
+            # logging.info("test_discrete_counter: " + str(Counter(res)))
             temp.append(res)
         return np.array(temp).T
 
@@ -337,7 +338,7 @@ class WOE(object):
         for idx in range(test_X.shape[-1]):
             x = test_X[:, idx]
             res = np.array([0] * x.shape[-1], dtype=int)
-            logging.info("test_before_counter: " + str(Counter(x)))
+            # logging.info("test_before_counter: " + str(Counter(x)))
             for i, point in enumerate(interval[idx]):
                 point1, point2 = point[0], point[1]
                 if point1 == point2:
@@ -346,11 +347,11 @@ class WOE(object):
                     x1 = x[np.where((x > point1) & (x <= point2))]
                 mask = np.in1d(x, x1)
                 res[mask] = (i + 1)
-                logging.info("test_discrete: " + str(res) + str((point1, point2)))
-                logging.info("test_mask: " + str(mask))
-                logging.info("test_interval_point: " + str(point))
-            logging.info("test_discrete_main: " + str(res))
-            logging.info("test_discrete_counter: " + str(Counter(res)))
+                # logging.info("test_discrete: " + str(res) + str((point1, point2)))
+                # logging.info("test_mask: " + str(mask))
+                # logging.info("test_interval_point: " + str(point))
+            # logging.info("test_discrete_main: " + str(res))
+            # logging.info("test_discrete_counter: " + str(Counter(res)))
             temp.append(res)
         return np.array(temp).T
 

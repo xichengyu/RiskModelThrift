@@ -65,10 +65,3 @@ if __name__ == '__main__':
     response = handle_data.gen_response()
     print(response)
 
-
-
-
-
-
-
-

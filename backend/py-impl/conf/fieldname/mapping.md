@@ -4,4 +4,4 @@
 
 modelNo         ModelType           description
 LL0041          risk_scorecard      风险评分模型
-LL0042          stacking
+LL0042          stacking            8xgboost+8lgbm

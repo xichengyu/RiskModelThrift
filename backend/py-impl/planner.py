@@ -45,7 +45,7 @@ class data_handler(object):
         try:
             return self.model(data)
         except:
-            # print(time.strftime("[%Y-%m-%d %H:%M:%S]", time.localtime()), traceback.format_exc())
+            print(time.strftime("[%Y-%m-%d %H:%M:%S]", time.localtime()), traceback.format_exc())
             return "request key error!"
 
     def gen_response(self):

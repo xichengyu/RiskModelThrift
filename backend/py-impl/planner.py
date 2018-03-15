@@ -64,7 +64,7 @@ if __name__ == '__main__':
     test_request = json.loads(open("request.txt").readlines()[0].strip()) 
 
     # handle_data = data_handler(test_request, scorecard.main)
-    handle_data = data_handler(test_request, joblib.load("../../RiskModelSystem/Model/stacked_16.pkl"))
+    handle_data = data_handler(test_request, joblib.load("../../RiskModelSystem/Model/stacked_16.pkl").predict)
 
     response = handle_data.gen_response()
     print(response)

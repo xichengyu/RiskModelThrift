@@ -34,7 +34,7 @@ logging.getLogger('').addHandler(console)
 
 stacking_0 = joblib.load("../../RiskModelSystem/Model/stacked_16.pkl")
 model_dict = {"LL0041": scorecard.main,
-              "LL0042": stacking_0}
+              "LL0042": stacking_0.predict}
 
 
 class RiskModelHandler:

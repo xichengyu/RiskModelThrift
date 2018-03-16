@@ -11,6 +11,7 @@ import time
 import numpy as np
 import os
 from sklearn.externals import joblib
+from pandas import DataFrame as df
 
 
 fieldname_dict = {}
@@ -25,12 +26,13 @@ class data_handler(object):
         self.model = filtering_model
 
     def get_data(self):
-        X = np.array([[]])
+        # X = np.array([[]])
         try:
-            # X = joblib.load("./conf/X.nparray")
-            X_dict = self.request["fieldData"]
-            for fieldname in fieldname_dict[self.request["modelId"]]:
-                X = np.column_stack((X, np.array(X_dict[fieldname])))
+            # X_dict = self.request["fieldData"]
+            X = df(self.request["fieldData"])
+            # for fieldname in fieldname_dict[self.request["modelId"]]:
+                # X = np.column_stack((X, np.array(X_dict[fieldname])))
+            X = X[fieldname_dict[self.request["modelId"]]]
         except:
             # traceback.print_exc()
             return KeyError
@@ -42,7 +44,7 @@ class data_handler(object):
     def gen_score(self):
         data = self.get_data()
 
-        print(data)
+        # print(data)
         try:
             return self.model(data)
         except:

@@ -11,7 +11,6 @@ import time
 import numpy as np
 import os
 from sklearn.externals import joblib
-from pandas import DataFrame as df
 
 
 fieldname_dict = {}
@@ -26,27 +25,24 @@ class data_handler(object):
         self.model = filtering_model
 
     def get_data(self):
+        X = np.array([[]])
         try:
+            # X = joblib.load("./conf/X.nparray")
             X_dict = self.request["fieldData"]
-
-            for fieldname in fieldname_dict[self.request["modelId"]]:   # 检查传入字段是否存在，以及转换value为list
-                X_dict[fieldname] = [X_dict[fieldname]]
+            for fieldname in fieldname_dict[self.request["modelId"]]:
+                X = np.column_stack((X, np.array(X_dict[fieldname])))
         except:
-            traceback.print_exc()
+            # traceback.print_exc()
             return KeyError
-
-        X = df(X_dict)
         X = X.astype(str)
         X[np.where(X == "None")] = "-1.0"
         X = X.astype(float)
         return np.array(X)
 
-
-
     def gen_score(self):
         data = self.get_data()
 
-        # print(data)
+        print(data)
         try:
             return self.model(data)
         except:

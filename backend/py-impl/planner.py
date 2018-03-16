@@ -26,20 +26,22 @@ class data_handler(object):
         self.model = filtering_model
 
     def get_data(self):
-        # X = np.array([[]])
+        X = np.array([[]])
         try:
             # X_dict = self.request["fieldData"]
             X = df(self.request["fieldData"])
             # for fieldname in fieldname_dict[self.request["modelId"]]:
                 # X = np.column_stack((X, np.array(X_dict[fieldname])))
             X = X[fieldname_dict[self.request["modelId"]]]
+
+            X = X.astype(str)
+            X[np.where(X == "None")] = "-1.0"
+            X = X.astype(float)
+            return np.array(X)
         except:
-            # traceback.print_exc()
+            traceback.print_exc()
             return KeyError
-        X = X.astype(str)
-        X[np.where(X == "None")] = "-1.0"
-        X = X.astype(float)
-        return np.array(X)
+
 
     def gen_score(self):
         data = self.get_data()

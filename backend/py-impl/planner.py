@@ -36,30 +36,31 @@ class data_handler(object):
         except:
             # traceback.print_exc()
             return KeyError
-        X = df(X_dict)
+        X = df(X_dict)[fieldname_dict[self.request["modelId"]]]
         # X = X.astype(str)
         # X[np.where(X == "None")] = "-1.0"
         X.replace("None", -1.0, inplace=True)
         X = X.astype(float)
         # return np.array(X)
 
-        print(X.dtypes)
+        # print(X.dtypes)
 
         return X
 
     def gen_score(self):
         data = self.get_data()
 
-        print(data)
+        # print(data)
         try:
             return self.model(data)
         except:
-            print(time.strftime("[%Y-%m-%d %H:%M:%S]", time.localtime()), traceback.format_exc())
+            # print(time.strftime("[%Y-%m-%d %H:%M:%S]", time.localtime()), traceback.format_exc())
             return "request key error!"
 
     def gen_response(self):
-        response = {"modelId": self.request["modelId"], "score": self.gen_score(), "responseId": self.request["queryId"], "idnoHash":self.request["idnoHash"],
+        response = {"modelId": self.request["modelId"], "score": str(self.gen_score()[0]), "responseId": self.request["queryId"], "idnoHash":self.request["idnoHash"],
                     "applyDate":self.request["applyDate"]}
+        # print(response)
         return json.dumps(response)
 
 

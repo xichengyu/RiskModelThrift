@@ -45,6 +45,8 @@ class data_handler(object):
         data = self.get_data()
 
         print(data)
+        print(self.model)
+
         try:
             return self.model(data)
         except:

@@ -32,8 +32,8 @@ def data_transfer(data):
         data1['w13'] = max(data['MAX_VC_SL_DATE_DAYS'].item(), data['MAX_VP_SL_DATE_DAYS'].item())
         data1['w14'] = min(data['MIN_VC_SL_DATE_DAYS'].item(), data['MIN_VP_SL_DATE_DAYS'].item())
         data1['w15'] = max(data['MAX_VC_SL_AMT_360D'].item(), data['MAX_VP_SL_AMT_360D'].item())
-        data1['w16'] = max(data['SUM_VC_SL_AMT'].item()/(data['SUM_VC_SL_CNT'].item()+0.001),
-                           data['SUM_VP_SL_AMT'].item()/(data['SUM_VP_SL_CNT'].item()+ 0.001))
+        data1['w16'] = max(data['SUM_VC_SL_AMT'].item()/(data['SUM_VC_SL_CNT'].item() + 0.001),
+                           data['SUM_VP_SL_AMT'].item()/(data['SUM_VP_SL_CNT'].item() + 0.001))
         data1['w17'] = max(data['MAX_VC_IM_AMT_360D'].item(), data['MAX_VP_IM_AMT_360D'].item())
         data1['w18'] = max(data['SUM_VC_IM_AMT'].item() / (data['SUM_VC_IM_CNT'].item() + 0.001),
                            data['SUM_VP_IM_AMT'].item() / (data['SUM_VP_IM_CNT'].item() + 0.001))

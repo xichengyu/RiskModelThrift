@@ -37,12 +37,13 @@ class data_handler(object):
             return KeyError
         X = df(X_dict)
         print(X)
+        X = X.astype(str)
         X.replace("None", -1.0, inplace=True)
-        X = X.astype(float)
         print(X)
         X = data_transfer(X)
         print(X)
         X = X[fieldname_dict[self.request["modelId"]]]
+        X = X.astype(float)
 
         # print(X.dtypes)
 
@@ -51,12 +52,12 @@ class data_handler(object):
     def gen_score(self):
         data = self.get_data()
 
-        print(data)
-        print(self.model)
+        # print(data)
+        # print(self.model)
 
         try:
             res = self.model(data)
-            print(res)
+            # print(res)
             return res
         except:
             # print(time.strftime("[%Y-%m-%d %H:%M:%S]", time.localtime()), traceback.format_exc())
@@ -67,7 +68,7 @@ class data_handler(object):
         response = {"modelId": self.request["modelId"], "score": str(self.gen_score()[0]),
                     "responseId": self.request["queryId"], "idnoHash": self.request["idnoHash"],
                     "applyDate": self.request["applyDate"]}
-        print(response)
+        # print(response)
         return json.dumps(response)
 
 
@@ -80,7 +81,7 @@ if __name__ == '__main__':
     # test_request = json.loads(open("request.txt").readlines()[0].strip()) 
     # handle_data = data_handler(test_request, joblib.load("../../RiskModelSystem/Model/stacked_16.pkl").predict)
 
-    test_request = json.loads(open("request_LL0043_bak.txt").readlines()[0].strip())
+    test_request = json.loads(open("request_LL0043.txt").readlines()[0].strip())
     print(test_request)
     handle_data = data_handler(test_request, joblib.load("../../RiskModelSystem/Model/yuecai_xgb_0304.m").predict)
 

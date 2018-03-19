@@ -13,6 +13,10 @@ import numpy as np
 import os
 from sklearn.externals import joblib
 from pandas import DataFrame as df
+import logging
+
+
+logging.info("33333")
 
 fieldname_dict = {}
 for file in os.listdir("./conf/fieldname"):
@@ -26,6 +30,7 @@ class data_handler(object):
         self.model = filtering_model
 
     def get_data(self):
+        logging.info("44444")
         try:
             X_dict = self.request["fieldData"]
             for fieldname in fieldname_dict[self.request["modelId"]]:
@@ -44,7 +49,7 @@ class data_handler(object):
     def gen_score(self):
         data = self.get_data()
 
-        print(data)
+        logging.info("55555")
         try:
             return self.model(data)
         except:
@@ -52,6 +57,8 @@ class data_handler(object):
             return "request key error!"
 
     def gen_response(self):
+
+        logging.info("66666")
 
         response = {"modelId": self.request["modelId"], "score": str(self.gen_score()[0]),
                     "responseId": self.request["queryId"], "idnoHash": self.request["idnoHash"],

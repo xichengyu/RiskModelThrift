@@ -49,7 +49,9 @@ class data_handler(object):
         print(self.model)
 
         try:
-            return self.model(data)
+            res = self.model(data)
+            print(res)
+            return res
         except:
             print(time.strftime("[%Y-%m-%d %H:%M:%S]", time.localtime()), traceback.format_exc())
             return "request key error!"

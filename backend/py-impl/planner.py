@@ -34,7 +34,7 @@ class data_handler(object):
                 # X = np.column_stack((X, np.array(X_dict[fieldname])))
                 X_dict[fieldname] = [X_dict[fieldname]]
         except:
-            # traceback.print_exc()
+            traceback.print_exc()
             return KeyError
         X = df(X_dict)[fieldname_dict[self.request["modelId"]]]
         # X = X.astype(str)

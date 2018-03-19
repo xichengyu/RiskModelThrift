@@ -14,6 +14,7 @@ import os
 from sklearn.externals import joblib
 from pandas import DataFrame as df
 
+
 fieldname_dict = {}
 for file in os.listdir("./conf/fieldname"):
     if ".txt" in file:
@@ -45,6 +46,8 @@ class data_handler(object):
         data = self.get_data()
 
         print(data)
+        print(self.model)
+
         try:
             return self.model(data)
         except:

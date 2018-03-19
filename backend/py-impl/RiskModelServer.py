@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
     cnf_file_path = "../conf/riskmodel.conf"
 
-    thrift_server = "172.31.24.11:9090"
+    thrift_server = "127.0.0.1:9090"
     # thrift_server = "0.0.0.0:9090"
 
     BuildTserver(thrift_server.split(":")[0], int(thrift_server.split(":")[1]))

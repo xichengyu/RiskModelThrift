@@ -1,6 +1,6 @@
 # coding=utf-8
 import pandas as pd
-
+import traceback
 
 def data_transfer(data):
     data1 = pd.DataFrame()
@@ -38,4 +38,5 @@ def data_transfer(data):
                            data['SUM_VP_IM_AMT'] / (data['SUM_VP_IM_CNT'] + 0.001))
         return data1
     except:
+        traceback.print_exc()
         return "data field missed!!"

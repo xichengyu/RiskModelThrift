@@ -51,7 +51,10 @@ class RiskModelHandler:
             logging.info("planner finish!!!")
         except:
             return "Wrong modelId!"
+
+        logging.info("11111")
         response.json_data = handle_data.gen_response()     # generate thrift response
+        logging.info("22222")
 
         # response.json_data = rmodel_request.json_data
 

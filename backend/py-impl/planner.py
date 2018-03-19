@@ -26,22 +26,16 @@ class data_handler(object):
         self.model = filtering_model
 
     def get_data(self):
-        # X = np.array([[]])
         try:
-            # X = joblib.load("./conf/X.nparray")
             X_dict = self.request["fieldData"]
             for fieldname in fieldname_dict[self.request["modelId"]]:
-                # X = np.column_stack((X, np.array(X_dict[fieldname])))
                 X_dict[fieldname] = [X_dict[fieldname]]
         except:
             traceback.print_exc()
             return KeyError
         X = df(X_dict)[fieldname_dict[self.request["modelId"]]]
-        # X = X.astype(str)
-        # X[np.where(X == "None")] = "-1.0"
         X.replace("None", -1.0, inplace=True)
         X = X.astype(float)
-        # return np.array(X)
 
         # print(X.dtypes)
 
@@ -50,7 +44,7 @@ class data_handler(object):
     def gen_score(self):
         data = self.get_data()
 
-        # print(data)
+        print(data)
         try:
             return self.model(data)
         except:
@@ -58,10 +52,11 @@ class data_handler(object):
             return "request key error!"
 
     def gen_response(self):
+
         response = {"modelId": self.request["modelId"], "score": str(self.gen_score()[0]),
                     "responseId": self.request["queryId"], "idnoHash": self.request["idnoHash"],
                     "applyDate": self.request["applyDate"]}
-        # print(response)
+        print(response)
         return json.dumps(response)
 
 

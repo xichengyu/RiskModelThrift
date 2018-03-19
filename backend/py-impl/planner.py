@@ -13,6 +13,7 @@ import numpy as np
 import os
 from sklearn.externals import joblib
 from pandas import DataFrame as df
+from yuecai0304_transfer import data_transfer
 
 
 fieldname_dict = {}
@@ -29,14 +30,16 @@ class data_handler(object):
     def get_data(self):
         try:
             X_dict = self.request["fieldData"]
-            for fieldname in fieldname_dict[self.request["modelId"]]:
-                X_dict[fieldname] = [X_dict[fieldname]]
+            for key, value in X_dict:
+                X_dict[key] = [value]
         except:
             traceback.print_exc()
             return KeyError
-        X = df(X_dict)[fieldname_dict[self.request["modelId"]]]
+        X = df(X_dict)
         X.replace("None", -1.0, inplace=True)
         X = X.astype(float)
+        X = data_transfer(X)
+        X = X[fieldname_dict[self.request["modelId"]]]
 
         # print(X.dtypes)
 

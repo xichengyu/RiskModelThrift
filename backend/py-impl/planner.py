@@ -36,14 +36,14 @@ class data_handler(object):
             traceback.print_exc()
             return KeyError
         X = df(X_dict)
-        print(X)
-        print(X["SUM_VS_IM_CNT_180"])
+        # print(X)
+        # print(X["SUM_VS_IM_CNT_180"])
         # X = X.astype(str)
         X.fillna(-1.0, inplace=True)
         # X.replace("None", -1.0, inplace=True)
-        print(X["SUM_VS_IM_CNT_180"])
+        # print(X["SUM_VS_IM_CNT_180"])
         X = data_transfer(X)
-        print(X.columns)
+        # print(X.columns)
         X = X[fieldname_dict[self.request["modelId"]]]
         X = X.astype(float)
 

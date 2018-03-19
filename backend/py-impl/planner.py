@@ -37,9 +37,10 @@ class data_handler(object):
             return KeyError
         X = df(X_dict)
         print(X)
-        X = X.astype(str)
+        print(X["SUM_VS_IM_CNT_180"])
+        # X = X.astype(str)
         X.replace("None", -1.0, inplace=True)
-        print(X)
+        print(X["SUM_VS_IM_CNT_180"])
         X = data_transfer(X)
         print(X)
         X = X[fieldname_dict[self.request["modelId"]]]

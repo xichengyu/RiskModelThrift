@@ -33,7 +33,7 @@ logging.getLogger('').addHandler(console)
 
 
 stacking_0 = joblib.load("../../RiskModelSystem/Model/stacked_16.pkl")
-yuecai_0304 = joblib.load("../../RiskModelSystem/Model/yuecai_0304.m.xgb")
+yuecai_0304 = joblib.load("../../RiskModelSystem/Model/yuecai_xgb_0304.m")
 model_dict = {"LL0041": scorecard.main,
               "LL0042": stacking_0.predict,
               "LL0043": yuecai_0304.predict}

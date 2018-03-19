@@ -76,7 +76,7 @@ if __name__ == '__main__':
 
     test_request = json.loads(open("request_LL0043.txt").readlines()[0].strip())
     print(test_request)
-    handle_data = data_handler(test_request, joblib.load("../../RiskModelSystem/Model/yuecai_0304.m.xgb").predict)
+    handle_data = data_handler(test_request, joblib.load("../../RiskModelSystem/Model/yuecai_xgb_0304.m").predict)
 
     response = handle_data.gen_response()
     print(response)

@@ -15,8 +15,8 @@ from thrift.protocol import TBinaryProtocol
 try:
 
 # Make socket
-    # transport = TSocket.TSocket('172.31.24.11', 9090)
-    transport = TSocket.TSocket('127.0.0.1', 9090)
+    transport = TSocket.TSocket('172.31.24.11', 9090)
+    # transport = TSocket.TSocket('127.0.0.1', 9090)
 
 
 # Buffering is critical. Raw sockets are very slow

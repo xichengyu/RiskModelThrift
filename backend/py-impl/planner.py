@@ -43,7 +43,7 @@ class data_handler(object):
         # X.replace("None", -1.0, inplace=True)
         print(X["SUM_VS_IM_CNT_180"])
         X = data_transfer(X)
-        print(X)
+        print(X.columns)
         X = X[fieldname_dict[self.request["modelId"]]]
         X = X.astype(float)
 

@@ -40,7 +40,8 @@ class data_handler(object):
         # print(X["SUM_VS_IM_CNT_180"])
         # X = X.astype(str)
         X.fillna(-1.0, inplace=True)
-        # X.replace("None", -1.0, inplace=True)
+        X.replace("None", -1.0, inplace=True)
+        X.replace("NULL", -1.0, inplace=True)
         # print(X["SUM_VS_IM_CNT_180"])
         X = data_transfer(X)
         # print(X.columns)
@@ -83,7 +84,7 @@ if __name__ == '__main__':
     # test_request = json.loads(open("request.txt").readlines()[0].strip()) 
     # handle_data = data_handler(test_request, joblib.load("../../RiskModelSystem/Model/stacked_16.pkl").predict)
 
-    test_request = json.loads(open("request_LL0043.txt").readlines()[0].strip())
+    test_request = json.loads(open("request.txt").readlines()[0].strip())
     print(test_request)
     handle_data = data_handler(test_request, joblib.load("../../RiskModelSystem/Model/yuecai_xgb_0304.m").predict)
 
